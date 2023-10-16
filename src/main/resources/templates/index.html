@@ -4,9 +4,24 @@
 
 	<th:block th:replace="~{../fragments/header :: header}"></th:block>
 
-	<div class="container d-flex justify-content-center py-5">
+	<div class="container text-center py-5">
 	
-		<div>IMMAGINE</div>
+		<th:block th:include="~{../fragments/frag-login.html :: login}"></th:block>
+	
+		<div>HOME</div>
+		
+		<ul>
+			<li
+				th:each="pizza : ${pizze}"
+				th:object="${pizza}"
+			>
+				[[*{nome}]]
+				<a th:href="@{/pizze/{id}(id=*{id})}">
+					Mostra
+				</a>
+			</li>
+		
+		</ul>
 	
 	</div>
 

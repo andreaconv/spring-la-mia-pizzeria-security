@@ -1,6 +1,8 @@
 package org.java.app.auth.pojo;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -39,10 +41,11 @@ public class User implements UserDetails {
 	
 	//COSTRUTTORE
 	public User() { }
-	public User(String username, String password) {
+	public User(String username, String password, Role... roles) {
 		
 		setUsername(username);
 		setPassword(password);
+		setRoles(new HashSet<>(Arrays.asList(roles)));
 	}
 	
 	//ID

@@ -36,8 +36,9 @@ public class PizzaController {
 	
 	@GetMapping("/")
 	public String index(Model model) {
-//		final String name = "Andrea";
-//		model.addAttribute("name", name);
+		
+		List<Pizza> pizze = pizzaService.findAll();
+		model.addAttribute("pizze", pizze);
 		return "index";
 	}
 	

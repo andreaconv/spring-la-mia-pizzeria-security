@@ -5,6 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import org.java.app.auth.pojo.Role;
+import org.java.app.auth.pojo.User;
+import org.java.app.auth.service.RoleService;
+import org.java.app.auth.service.UserService;
 import org.java.app.db.pojo.Ingredient;
 import org.java.app.db.pojo.Pizza;
 import org.java.app.db.pojo.Special;
@@ -15,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
@@ -27,6 +32,12 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 	
 	@Autowired
 	private IngredientService ingredientService;
+	
+	@Autowired
+	private RoleService roleService;
+	
+	@Autowired
+	private UserService userService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringLaMiaPizzeriaCrudApplication.class, args);
@@ -104,6 +115,27 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 	    specialService.save(special2);
 	    
 	    System.out.println("Insert OK!");
+	    
+	    //CREO I RUOLI
+		Role user = new Role("USER");
+		Role admin = new Role("ADMIN");
+		
+		//SALVO I RUOLI
+		roleService.save(user);
+		roleService.save(admin);
+		
+		//stringa che converte la password in criptata
+		final String pwsUser = new BCryptPasswordEncoder().encode("password");
+		final String pwsAdmin = new BCryptPasswordEncoder().encode("password");
+		
+		//CREO USER E ADMIN
+		User User = new User("User", pwsUser, user);
+		User Admin = new User("Admin", pwsAdmin, admin, user);
+		
+		//SALVO USER E ADMIN
+		userService.save(User);
+		userService.save(Admin);
+	    
 	}
 	
 

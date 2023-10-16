@@ -40,7 +40,7 @@
 							[[*{titolo}]] <br>
 <!-- 						TODO: modificare la visualizzazione della data  -->
 							[[*{specialDate}]] ~ [[*{returnDate}]] 
-							<div class="d-inline float-end">
+							<div sec:authorize="hasAnyAuthority('ADMIN')" class="d-inline float-end">
 							
 								<a title="Modifica" th:href="@{/pizze/special/edit/{id}(id=*{id})}">
 									<span class="btn btn-warning mx-2">
@@ -64,8 +64,13 @@
 					</ul>
 				</div>
 				
-				<a href="/pizze" class="btn btn-primary mt-2">Menu pizze</a>
-				<a th:href="@{/pizze/special/{id}(id=*{id})}" class="btn btn-secondary float-end mt-2">Sponsorizza</a>
+				<div
+					sec:authorize="hasAnyAuthority('ADMIN')"
+					>
+					<a href="/pizze" class="btn btn-primary mt-2">Menu pizze</a>
+					<a th:href="@{/pizze/special/{id}(id=*{id})}" class="btn btn-secondary float-end mt-2">Sponsorizza</a>
+				</div>
+				
 			</div>
 		</div>
 	
